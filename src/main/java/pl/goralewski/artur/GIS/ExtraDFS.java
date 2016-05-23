@@ -13,10 +13,10 @@ import java.util.Stack;
  */
 public class ExtraDFS {
 
-    int counter;
-    Stack<Edge> edgeStack;
-    List<Node> nodes;
-    List<TwoCoherentComponent> twoCoherentComponents;
+    private int counter;
+    private Stack<Edge> edgeStack;
+    private List<Node> nodes;
+    private List<TwoCoherentComponent> twoCoherentComponents;
 
     public ExtraDFS(List<Node> nodes) {
         this.counter=0;
@@ -67,18 +67,17 @@ public class ExtraDFS {
     //zdejmuje ze stosu i robi skladow¹ dwuspójn¹
     public TwoCoherentComponent createTwoCoherentComponentFromStack(Edge popWithThisEdge) {
         TwoCoherentComponent twoCoherentComponent = new TwoCoherentComponent();
-        edgeStack.forEach(System.out::println);
-
-        System.out.println(edgeStack.search(popWithThisEdge)+"\n");
+//        edgeStack.forEach(System.out::println);
+//        System.out.println(edgeStack.search(popWithThisEdge)+"\n");
         int howManyEdgesToPop = edgeStack.search(popWithThisEdge);
         for (int i = 1; i <= howManyEdgesToPop; i++) {
-            System.out.println(edgeStack.search(popWithThisEdge));
+//            System.out.println(edgeStack.search(popWithThisEdge));
             Edge edge = edgeStack.pop();
-            System.out.println(i + "------" + edge);
+//            System.out.println(i + "------" + edge);
             twoCoherentComponent.addNodeToTwoCoherentComponent(edge.getBeginning());
             twoCoherentComponent.addNodeToTwoCoherentComponent(edge.getEnd());
         }
-        System.out.println("--" + twoCoherentComponent);
+//        System.out.println("--" + twoCoherentComponent);
         return twoCoherentComponent;
     }
 }
