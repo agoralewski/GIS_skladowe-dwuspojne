@@ -30,6 +30,10 @@ public class Edge {
                 '}';
     }
 
+    public static void connectTwoNodes(Node nodeOne, Node nodeTwo){
+        nodeOne.addNeighbour(nodeTwo);
+        nodeTwo.addNeighbour(nodeOne);
+    }
 
 
     @Override
