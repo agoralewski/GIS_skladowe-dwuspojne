@@ -1,6 +1,3 @@
-### Java template
-*.class
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -50,4 +47,4 @@ fabric.properties
 # Created by .ignore support plugin (hsz.mobi)
 
 
-*.iml
+
