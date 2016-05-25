@@ -1,41 +1,55 @@
-#-*- encoding: utf-8 -*-
+#-*- coding: utf-8 -*-
+import numpy as np
 
-class algorithm:
+# Zagadka - a jak by tutaj reprezentować graf trywialny? :/ Generalnie na chwilę obecną nie obsługuję wierzchołków bez krawędzi
 
-    def __init__(self):
-        self.E = {(1,2),(2,3),(2,3),(1,4)}
-        self.V = self.count_vertexes_from_edges(self.E)
+axes = ({0,1},{1,2},{2,3},{1,3},{3,4},{1,4},{4,5},{5,6})
+#axes = ({0,1},{1,2},{0,2})
+
+
+
+
+class DFS:
+
+    def __init__(self, axes):
+        self.axes = axes
+        self.verticles_list = list(reduce(set.union, axes)) if len(axes)>1 else axes
+        self.verticles_count = len(self.verticles_list)
+        # wyliczanie macierzy sąsiedztwa - uwaga, od tego momentu będę się posługiwał numerami wierzchołków wg położenia w macierzy!
+        self.adj_matrix = np.zeros((self.verticles_count, self.verticles_count),np.bool)
+        for k,n in axes:
+            k_ind = self.verticles_list.index(k)
+            n_ind = self.verticles_list.index(n)
+            self.adj_matrix[k_ind, n_ind] = 1
+            self.adj_matrix[n_ind, k_ind] = 1
+        # przygotowywanie tablic na num i lowpt
+        self.num = np.zeros(self.verticles_count,np.int8)
+        self.lowpt = np.zeros(self.verticles_count,np.int8)
         self.i = 0
-        self.S = []
-        self.num = dict()
-        self.lowpt = dict()
-        for x in self.V:
-            self.num[x] = 0
-        first_vertex = list(self.V)[0]
-        for x in self.V:
-            self.BICON(x, first_vertex)
+        self.stack = []
 
-    def BICON(self, v, u):
+    def DepthFirstSearch(self):
+        print "Uwaga - aby dojść do oryginalnej numeracji wierzchołków, zastosuj słownik:\n {}".format(dict(enumerate(self.verticles_list)))
+        for x in range(self.verticles_count):
+            if self.num[x]==0:
+                self.VisitNode(x, None)
+        print self.stack
+
+    def VisitNode(self, x, p):
         self.i += 1
-        self.num[v] = self.i
-        self.lowpt[v] = self.i
-        for w in self.Adj(v):
+        self.num[x] = self.i
+        self.lowpt[x] = self.i
+        #neighbours = reduce(set.union, [a.difference({u}) for a in axes if u in a])
+        neighbours = [n for (n,k) in enumerate(self.adj_matrix[x,:]) if k and n!=x]
+        for w in neighbours:
             if self.num[w]==0:
-                # (v,w) jest krawędzią drzewa
-                self.S.append((v,w))
-                self.BICON(w,v)
-                self.lowpt[v] = min(self.lowpt[v], self.lowpt[w])
-                if self.lowpt[w] >= self.num[v]:
-                    print "Rewolta! {}".format(v)
-            elif self.num[w] < self.num[v] and w!=u:
-                self.S.append((v,w))
-                self.lowpt[v] = min(self.lowpt[v], self.num[w])
-
-    def count_vertexes_from_edges(self, edges_list):
-        return set(reduce(lambda x,y: x+y, edges_list))
-
-    def Adj(self, v):
-        adjancent_edges = [(x1, x2) for (x1, x2) in self.E if (x1==v)^(x2==v)]
-        adjancent_vertexes = self.count_vertexes_from_edges(adjancent_edges)
-        adjancent_vertexes.remove(v)
-        return adjancent_vertexes
+                self.stack.append({x, w})
+                self.VisitNode(w, x)
+                self.lowpt[x] = min(self.lowpt[x], self.lowpt[w])
+                if self.lowpt[w] >= self.num[x]:
+                    stack_index = self.stack.index({x,w})
+                    print "Wierzchołek {}, składowa dwuspójna: {}".format(x, self.stack[stack_index:])
+                    self.stack = self.stack[:stack_index]
+            elif self.num[w]<self.num[x] and w!=p:
+                self.stack.append({x, w})
+                self.lowpt[x] = min(self.lowpt[x], self.num[w])
