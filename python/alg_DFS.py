@@ -17,7 +17,7 @@ class DFS:
         self.verticles_count = len(self.verticles_list)
         # wyliczanie macierzy sąsiedztwa - uwaga, od tego momentu będę się posługiwał numerami wierzchołków wg położenia w macierzy!
         self.adj_matrix = np.zeros((self.verticles_count, self.verticles_count),np.bool)
-        for k,n in axes:
+        for k,n in [a for a in axes if len(a)==2]:
             k_ind = self.verticles_list.index(k)
             n_ind = self.verticles_list.index(n)
             self.adj_matrix[k_ind, n_ind] = 1
