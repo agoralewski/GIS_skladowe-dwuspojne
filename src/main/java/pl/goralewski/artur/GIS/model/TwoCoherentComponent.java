@@ -24,7 +24,7 @@ public class TwoCoherentComponent {
     @Override
     public String toString() {
         return "TwoCoherentComponent{" +
-                "twoCoherentComponentNodes=" + twoCoherentComponentNodes +
+                "Nodes=" + twoCoherentComponentNodes +
                 '}';
     }
 }
