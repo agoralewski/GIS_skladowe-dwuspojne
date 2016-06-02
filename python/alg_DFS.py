@@ -27,13 +27,16 @@ class DFS:
         self.lowpt = np.zeros(self.verticles_count,np.int8)
         self.i = 0
         self.stack = []
+        # licznik skladowych dwuspojnych - tak dla picu
+        self.two_coherent_components_counter = 0
+        # slownik przeliczajacy numery wierzcholkow na etykiety
+        self.verticles_to_labels_dict = dict(enumerate(self.verticles_list))
 
     def DepthFirstSearch(self):
-        print "Uwaga - aby dojść do oryginalnej numeracji wierzchołków, zastosuj słownik:\n {}".format(dict(enumerate(self.verticles_list)))
         for x in range(self.verticles_count):
             if self.num[x]==0:
                 self.VisitNode(x, None)
-        print self.stack
+        print "number of twoCoherentComponents: {}".format(self.two_coherent_components_counter)
 
     def VisitNode(self, x, p):
         self.i += 1
@@ -48,8 +51,11 @@ class DFS:
                 self.lowpt[x] = min(self.lowpt[x], self.lowpt[w])
                 if self.lowpt[w] >= self.num[x]:
                     stack_index = self.stack.index({x,w})
-                    print "Wierzchołek {}, składowa dwuspójna: {}".format(x, self.stack[stack_index:])
+                    nodes_in_component = reduce(set.union, self.stack[stack_index:])
+                    nodes_in_component_formated = ", ".join(["Node{{name=\'{}\'}}".format(self.verticles_to_labels_dict[i]) for i in nodes_in_component])
+                    print "TwoCoherentComponent{{Nodes=[{}], cutNode={}}}".format(nodes_in_component_formated, x)
                     self.stack = self.stack[:stack_index]
+                    self.two_coherent_components_counter +=1
             elif self.num[w]<self.num[x] and w!=p:
                 self.stack.append({x, w})
                 self.lowpt[x] = min(self.lowpt[x], self.num[w])
