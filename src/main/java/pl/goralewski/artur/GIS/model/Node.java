@@ -63,16 +63,17 @@ public class Node {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Node{name='");
         stringBuilder.append(name).append("'");
-        stringBuilder.append(", num=");
-        stringBuilder.append(num);
-        stringBuilder.append(", lowpt=");
-        stringBuilder.append(lowpt);
-        stringBuilder.append(", neighbours=[");
-        int index = 0;
-        for (Node node : neighbours) {
-            stringBuilder.append((++index==1?"":", ")).append(node.getName());
-        }
-        stringBuilder.append("]}");
+//        stringBuilder.append(", num=");
+//        stringBuilder.append(num);
+//        stringBuilder.append(", lowpt=");
+//        stringBuilder.append(lowpt);
+//        stringBuilder.append(", neighbours=[");
+//        int index = 0;
+//        for (Node node : neighbours) {
+//            stringBuilder.append((++index==1?"":", ")).append(node.getName());
+//        }
+//        stringBuilder.append("]");
+        stringBuilder.append("}");
 
         return stringBuilder.toString();
     }

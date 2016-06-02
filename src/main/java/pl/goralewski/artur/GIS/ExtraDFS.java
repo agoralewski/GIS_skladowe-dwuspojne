@@ -6,6 +6,7 @@ import pl.goralewski.artur.GIS.model.TwoCoherentComponent;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -15,10 +16,10 @@ public class ExtraDFS {
 
     private int counter;
     private Stack<Edge> edgeStack;
-    private List<Node> nodes;
+    private Set<Node> nodes;
     private List<TwoCoherentComponent> twoCoherentComponents;
 
-    public ExtraDFS(List<Node> nodes) {
+    public ExtraDFS(Set<Node> nodes) {
         this.counter=0;
         this.edgeStack = new Stack<>();
         this.nodes = nodes;
