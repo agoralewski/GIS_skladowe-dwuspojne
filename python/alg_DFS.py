@@ -42,8 +42,11 @@ class DFS:
         self.i += 1
         self.num[x] = self.i
         self.lowpt[x] = self.i
-        #neighbours = reduce(set.union, [a.difference({u}) for a in axes if u in a])
         neighbours = [n for (n,k) in enumerate(self.adj_matrix[x,:]) if k and n!=x]
+        if not neighbours:
+            print "TwoCoherentComponent{{Nodes=[\'{0}\'], cutNode=\'{0}\'}}".format(self.verticles_to_labels_dict[x])
+            self.two_coherent_components_counter +=1
+            return
         for w in neighbours:
             if self.num[w]==0:
                 self.stack.append({x, w})
@@ -52,8 +55,8 @@ class DFS:
                 if self.lowpt[w] >= self.num[x]:
                     stack_index = self.stack.index({x,w})
                     nodes_in_component = reduce(set.union, self.stack[stack_index:])
-                    nodes_in_component_formated = ", ".join(["Node{{name=\'{}\'}}".format(self.verticles_to_labels_dict[i]) for i in nodes_in_component])
-                    print "TwoCoherentComponent{{Nodes=[{}], cutNode={}}}".format(nodes_in_component_formated, x)
+                    nodes_in_component_formated = ", ".join(["\'{}\'".format(self.verticles_to_labels_dict[i]) for i in nodes_in_component])
+                    print "TwoCoherentComponent{{Nodes=[{}], cutNode=\'{}\'}}".format(nodes_in_component_formated, x)
                     self.stack = self.stack[:stack_index]
                     self.two_coherent_components_counter +=1
             elif self.num[w]<self.num[x] and w!=p:
