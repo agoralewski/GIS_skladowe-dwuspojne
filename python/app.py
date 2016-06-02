@@ -4,6 +4,7 @@ import alg_DFS
 
 if len(sys.argv)<=1:
     print "Podaj nazwę pliku z listą krawędzi grafu"
+    exit()
 
 with open(sys.argv[1],'r') as f:
     input_axes = f.readlines()
