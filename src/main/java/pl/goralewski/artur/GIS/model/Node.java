@@ -61,8 +61,8 @@ public class Node {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("Node{name='");
-        stringBuilder.append(name).append("'");
+//        StringBuilder stringBuilder = new StringBuilder("Node{name='");
+//        stringBuilder.append(name).append("'");
 //        stringBuilder.append(", num=");
 //        stringBuilder.append(num);
 //        stringBuilder.append(", lowpt=");
@@ -73,8 +73,8 @@ public class Node {
 //            stringBuilder.append((++index==1?"":", ")).append(node.getName());
 //        }
 //        stringBuilder.append("]");
-        stringBuilder.append("}");
-
-        return stringBuilder.toString();
+//        stringBuilder.append("}");
+//        return stringBuilder.toString();
+        return '\''+name+'\'';
     }
 }

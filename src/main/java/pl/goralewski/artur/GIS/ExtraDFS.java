@@ -68,6 +68,7 @@ public class ExtraDFS {
     //zdejmuje ze stosu i robi skladow¹ dwuspójn¹
     public TwoCoherentComponent createTwoCoherentComponentFromStack(Edge popWithThisEdge) {
         TwoCoherentComponent twoCoherentComponent = new TwoCoherentComponent();
+        twoCoherentComponent.setCutNode(popWithThisEdge.getBeginning());
 //        edgeStack.forEach(System.out::println);
 //        System.out.println(edgeStack.search(popWithThisEdge)+"\n");
         int howManyEdgesToPop = edgeStack.search(popWithThisEdge);
