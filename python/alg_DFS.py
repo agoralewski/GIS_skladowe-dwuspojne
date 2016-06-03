@@ -2,12 +2,6 @@
 import numpy as np
 import sys
 import itertools
-# Zagadka - a jak by tutaj reprezentować graf trywialny? :/ Generalnie na chwilę obecną nie obsługuję wierzchołków bez krawędzi
-
-axes = ({0,1},{1,2},{2,3},{1,3},{3,4},{1,4},{4,5},{5,6})
-#axes = ({0,1},{1,2},{0,2})
-
-
 
 
 class DFS:
