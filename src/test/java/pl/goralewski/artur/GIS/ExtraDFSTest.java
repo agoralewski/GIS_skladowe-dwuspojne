@@ -98,7 +98,7 @@ public class ExtraDFSTest extends TestCase {
     }
 
     public void testCycleGraph(){
-        //{1,3} {1,4}, {1,5}, {2,3} {2,4}, {2,5},
+        //{1,2} {2,3}, {3,4}, {4,1},
         Node node1 = new Node("1");
         Node node2 = new Node("2");
         Node node3 = new Node("3");
