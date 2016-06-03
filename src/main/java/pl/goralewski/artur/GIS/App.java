@@ -16,6 +16,7 @@ public class App {
         if(args.length == 0) {
             System.out.println("Podaj nazwę pliku z listą krawędzi grafu");
         }else {
+            System.out.println("Przetwarzanie pliku: "+args[0]);
             String path = args[0];
             DataSourceFileReader dataSourceFileReader = new DataSourceFileReader(path);
             Set<Node> nodes = dataSourceFileReader.makeNodesFromFile();
