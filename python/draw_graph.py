@@ -7,23 +7,31 @@ import re
 
 
 if __name__ == "__main__":
-    # wczytywanie listy krawedzi
-    if len(sys.argv)<=1:
-        print "Podaj nazwę pliku z listą krawędzi grafu"
-        exit()
-
-    with open(sys.argv[1],'r') as f:
-        input_axes = f.readlines()
-        input_axes = [tuple(i.replace('\r','').replace('\n','').split(' ')) for i in input_axes]
 
     # przetwarzanie outputu z algorytmu
     nodes_in_components = list()
     for i, line in enumerate(sys.stdin):
+        if i==0:
+            file_path = re.findall(r"Przetwarzanie pliku: (.*)", line)
+
         nodes = re.findall(r"TwoCoherentComponent\{Nodes=\[(.*)\], cutNode='.*'\}", line)
         if nodes:
             nodes = re.findall(r"\'(.*?)\'(?:, )?", nodes[0])
         if nodes:
             nodes_in_components.append(nodes)
+
+    # wczytywanie listy krawedzi
+    if len(sys.argv)<=1 and not file_path: #wykrywam sytuacje, gdy sciezka nie jest podana nigdzie
+        print "Podaj nazwę pliku z listą krawędzi grafu"
+        exit()
+    elif len(sys.argv)>1:
+        file_path=sys.argv[1]
+    else:
+        file_path=file_path[0]
+
+    with open(file_path,'r') as f:
+        input_axes = f.readlines()
+        input_axes = [tuple(i.replace('\r','').replace('\n','').split(' ')) for i in input_axes]
     # tworzenie grafu
     g = nx.Graph()
     colors = list()

@@ -34,12 +34,9 @@ class DFS:
         self.verticles_to_labels_dict = dict(enumerate(self.verticles_list))
 
     def DepthFirstSearch(self):
-        print self.verticles_count
         for x in xrange(self.verticles_count):
             if self.num[x]==0:
                 self.VisitNode(x, None)
-        print self.i
-        #print self.stack
         print "number of twoCoherentComponents: {}".format(self.two_coherent_components_counter)
 
     def VisitNode(self, x, p):
